@@ -22,4 +22,4 @@ This project is a starter web application for learning how a stack works using H
 - Visual Studio Code
 
 ## Original Starter Repository
-https://github.com/Xioaxiao04/F1-stack-simulator-JABAGAT-Princess
+https://github.com/Jackson-Soriano/e26_temp.git
