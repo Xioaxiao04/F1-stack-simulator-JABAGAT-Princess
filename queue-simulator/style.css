@@ -1,0 +1,173 @@
+
+/* GENERAL DESIGN */
+body {
+    background-color: #eef2f7;
+    font-family: Arial, sans-serif;
+    color: #263b5e;
+}
+
+.container {
+    max-width: 1000px;
+}
+
+/* PAGE HEADING */
+h1 {
+    background-color: #263b5e;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* COLUMN HEADINGS */
+.column-headings {
+    background-color: #3867d6;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px 10px 0 0;
+}
+
+/* MAIN AREA */
+.simulator-area {
+    background-color: white;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* OPERATIONS PANEL */
+.operations-panel {
+    background-color: #e9eef5;
+    border-radius: 8px;
+}
+
+#data {
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+}
+
+.btn {
+    padding: 11px;
+    font-weight: bold;
+}
+
+#enqueueBtn {
+    background-color: #198754;
+}
+
+#dequeueBtn {
+    background-color: #dc3545;
+}
+
+#peekBtn {
+    background-color: #ffc107;
+    color: black;
+}
+
+#clearBtn {
+    background-color: #f8f9fa;
+    color: black;
+}
+
+/* QUEUE PANEL */
+.queue-panel {
+    background-color: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 8px;
+    padding: 12px;
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* FRONT LABEL */
+.front-label {
+    color: #198754;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* QUEUE ITEMS */
+.queue-display {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.queue-item {
+    background-color: #3867d6;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 7px;
+    overflow-wrap: anywhere;
+}
+
+/* PEEK HIGHLIGHT */
+.queue-item.highlight {
+    background-color: #ffc107;
+    color: black;
+    border: 3px solid #b7790b;
+}
+
+/* EMPTY MESSAGE */
+.empty-message {
+    color: #64748b;
+    text-align: center;
+    margin: auto;
+}
+
+/* REAR LABEL */
+.rear-label {
+    color: #9c254d;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+/* DELETED PANEL */
+.deleted-panel {
+    background-color: #fce8ed;
+    border: 1px solid #f1c1cd;
+    border-radius: 8px;
+    padding: 15px;
+    min-height: 350px;
+}
+
+.deleted-heading {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.deleted-value {
+    background-color: #9c254d;
+    color: white;
+    padding: 15px;
+    border-radius: 7px;
+    text-align: center;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+}
+
+/* STATUS MESSAGE */
+#message {
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 767px) {
+    .column-headings {
+        display: none;
+    }
+
+    .queue-panel,
+    .deleted-panel {
+        min-height: 200px;
+    }
+}
