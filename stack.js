@@ -1,72 +1,145 @@
-
+ 
 class Stack {
     constructor() {
-        this.items = []
-        this.count = 0
-         
+        this.items = [];
     }
 
-    // Add element to top of stack
+    // Add an element to the top
     push(element) {
-        this.items[this.count] = element
-        let push_res=`${element}`; //console.log(`added to ${this.count}`);
-        this.count += 1;
-        let count=this.count -1;
-        //return [push_res,count];
-        return [push_res, count];
+        this.items.push(element);
     }
 
-    // Return and remove top element in stack
-    // Return undefined if stack is empty
+    // Remove the top element
     pop() {
-        if(this.count == 0) return undefined
-        let deleteItem = this.items[this.count - 1]
-        this.count -= 1
-        console.log(`${deleteItem} removed`)
-        return deleteItem
+        if (this.isEmpty()) return undefined;
+        return this.items.pop();
     }
 
-    // Check top element in stack
+    // Check the top element
     peek() {
-        console.log(`Top element is ${this.items[this.count - 1]}`)
-        return this.items[this.count - 1]
+        if (this.isEmpty()) return undefined;
+        return this.items[this.items.length - 1];
     }
 
     // Check if stack is empty
     isEmpty() {
-        console.log(this.count == 0 ? 'Stack is empty' : 'Stack is NOT empty')
-        return this.count == 0
+        return this.items.length === 0;
     }
 
-    // Check size of stack
-    size() {
-        console.log(`${this.count} elements in stack`)
-        return this.count
-    }
-
-    // Print elements in stack
-    print() {
-        let str = ''
-        for(let i = 0; i < this.count; i++) {
-            str += this.items[i] + ' '
-        }
-        return str
-    }
-
-    // Clear stack
+    // Clear the stack
     clear() {
-        this.items = []
-        this.count = 0
-        console.log('Stack cleared..')
-        return this.items
+        this.items = [];
     }
 }
 
-const stack = new Stack()
+const stack = new Stack();
 
-$(document).ready(function(){
-    $("#stack").prepend(`<div class="row bg-primary push">${stack.push(100)[0]}</div>`);
-    $("#stack").prepend(`<div class="row bg-success push">${stack.push(200)[0]}</div>`);
-    $("#stack").prepend(`<div class="row bg-primary push">${stack.push(300)[0]}</div>`);
-    $("#stack").prepend(`<div class="row bg-success push">${stack.push(400)[0]}</div>`);
+$(document).ready(function () {
+
+    // Get the input and buttons
+    const input = $(".row.bg-danger .col").first().find("input");
+    const buttons = $(".row.bg-danger .col").first().find("button");
+    const deleted = $(".popped .pop");
+
+    // Add message area
+    $(".row.bg-danger").after(
+        '<div id="message" class="alert alert-info mt-2">Stack Simulator Ready!</div>'
+    );
+
+    // Add starting elements
+    stack.push("100");
+    stack.push("200");
+    stack.push("300");
+    stack.push("400");
+
+    // Display stack
+    function displayStack(highlight = false) {
+        $("#stack").empty();
+
+        if (stack.isEmpty()) {
+            $("#stack").html(
+                '<p class="text-white text-center mt-3">Stack is empty</p>'
+            );
+            return;
+        }
+
+        for (let i = stack.items.length - 1; i >= 0; i--) {
+            let item = $("<div></div>");
+
+            item.addClass("row text-center p-2 mb-1 text-white");
+            item.addClass(i % 2 === 0 ? "bg-primary" : "bg-success");
+            item.text(stack.items[i]);
+
+            if (highlight && i === stack.items.length - 1) {
+                item.addClass("border border-warning border-4");
+            }
+
+            $("#stack").append(item);
+        }
+    }
+
+    // PUSH BUTTON
+    buttons.eq(0).click(function () {
+        let value = input.val().trim();
+
+        if (value === "") {
+            $("#message").text("Please enter a value!");
+            return;
+        }
+
+        stack.push(value);
+        input.val("");
+        deleted.text("None");
+
+        displayStack();
+        $("#message").text(value + " added to the top!");
+    });
+
+    // POP BUTTON
+    buttons.eq(1).click(function () {
+        if (stack.isEmpty()) {
+            $("#message").text("Stack is empty! Cannot pop.");
+            return;
+        }
+
+        let removed = stack.pop();
+
+        deleted.text(removed);
+        displayStack();
+
+        $("#message").text(removed + " removed from the stack!");
+    });
+
+    // PEEK BUTTON
+    buttons.eq(2).click(function () {
+        if (stack.isEmpty()) {
+            $("#message").text("Stack is empty! Nothing to peek.");
+            return;
+        }
+
+        let top = stack.peek();
+
+        displayStack(true);
+        $("#message").text("Top element is " + top);
+    });
+
+    // CLEAR BUTTON
+    buttons.eq(3).click(function () {
+        stack.clear();
+        deleted.text("None");
+
+        displayStack();
+        $("#message").text("Stack cleared successfully!");
+    });
+
+    // Press Enter to push
+    input.on("keydown", function (event) {
+        if (event.key === "Enter") {
+            buttons.eq(0).click();
+        }
+    });
+
+    // Initial display
+    deleted.text("None");
+    displayStack();
 });
